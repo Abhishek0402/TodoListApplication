@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="text"/>
+
+        <ImageButton
+            android:id="@+id/checkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel_task"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/deleteButton"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:src="@drawable/ic_delete"-->
+<!--            android:visibility="gone"-->
+<!--            android:background="@null"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"/>-->
+
+        <ImageButton
+            android:id="@+id/undoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_complete_task"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
