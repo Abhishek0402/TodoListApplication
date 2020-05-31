@@ -7,22 +7,17 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.todoapplication.fragments.DialogFragment;
 import com.todoapplication.models.TaskBlock;
 import com.todoapplication.utils.DatabaseHelper;
 import com.todoapplication.adapters.TaskAdapter;
 import com.todoapplication.R;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,10 +25,7 @@ import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity {
@@ -90,17 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            createExampleList();
+            createTaskList();
             buildRecyclerView();
 
             taskAddButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     openDialog();
-                  //  mAdapter.notifyDataSetChanged();
-//                    taskList.add(position, new ExampleItem(R.drawable.ic_android, "New Item At Position" + position, "This is Line 2"));
-//                    mAdapter.notifyItemInserted(position);
-               //     mAdapter.notifyDataSetChanged();
                 }
             });
         }
@@ -112,12 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void createExampleList() {
- //       mExampleList = new ArrayList<>();
-//        mExampleList.add(new TaskList(R.drawable.ic_android, "Line 1", "Line 2"));
-//        mExampleList.add(new ExampleItem(R.drawable.ic_audio, "Line 3", "Line 4"));
-//        mExampleList.add(new ExampleItem(R.drawable.ic_sun, "Line 5", "Line 6"));
-
+    public void createTaskList() {
         Cursor data = toDoDB.getListContents();
         if(data.getCount() == 0){
             Toast.makeText(this, "There are no contents in this list!",Toast.LENGTH_LONG).show();
@@ -127,13 +110,10 @@ public class MainActivity extends AppCompatActivity {
                 boolean status = data.getInt(2)==1 ? true:false;
                 TaskBlock taskBlock = new TaskBlock(task, status);
                 taskList.add(taskBlock);
-               // taskList.add(data.getString(1));
-               // mRecyclerView = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,taskList);
-               // mRecyclerView.setAdapter(taskList);
-
             }
         }
     }
+
     public void buildRecyclerView() {
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -144,32 +124,19 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
         mAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
-//            @Override
-//            public void onDeleteClick(int position) {
-//                //changeItem(position, "Clicked");
-//                boolean result = toDoDB.delete(taskList.get(position));
-//                taskList.remove(position);
-//                mAdapter.notifyItemRemoved(position);
-//            }
             @Override
             public void onStatusChange(int position) {
                 boolean result = toDoDB.update(taskList.get(position), true);
                 if(result==true){
-//                    checkButton.setVisibility(View.GONE);
-//                    undoButton.setVisibility(View.VISIBLE);
                     taskList.get(position).setStatus(true);
                     mAdapter.notifyDataSetChanged();
                     Toast.makeText(MainActivity.this, "updated",Toast.LENGTH_LONG).show();
                 }
-                //removeItem(position);
-           //     checkButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_undo));
             }
 
             public void onUndo(int position){
                 boolean result = toDoDB.update(taskList.get(position), false);
                 if(result==true){
-//                    undoButton.setVisibility(View.GONE);
-//                    undoButton.setVisibility(View.VISIBLE);
                     taskList.get(position).setStatus(false);
                     mAdapter.notifyDataSetChanged();
                     Toast.makeText(MainActivity.this, "updated",Toast.LENGTH_LONG).show();
@@ -177,11 +144,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    public void insertItem(int position){
-//      //  taskList.add(position, new TaskBlock(, "New Item At Position" + position, "This is Line 2"));
-//                    mAdapter.notifyItemInserted(position);
-//    }
 
     @Override
     public void onBackPressed() {
@@ -225,31 +187,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-//        MenuItem menuItem = menu.findItem(R.id.search);
-//        SearchView searchView = (SearchView)menuItem.getActionView();
-//        searchView.setOnQueryTextListener(this);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onQueryTextSubmit(String query) {
-//        return false;
-//    }
-
-//    @Override
-//    public boolean onQueryTextChange(String newText) {
-//        String userInput = newText.toLowerCase();
-//        ArrayList<TaskBlock> newList = new ArrayList<>();
-//        for(TaskBlock task : taskList){
-//            if(task.getTask().toLowerCase().contains(userInput)){
-//                newList.add(task);
-//            }
-//        }
-//        mAdapter.search(newList);
-//        return true;
-//    }
 }

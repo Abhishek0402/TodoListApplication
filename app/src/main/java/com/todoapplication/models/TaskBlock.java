@@ -2,23 +2,13 @@ package com.todoapplication.models;
 
 public class TaskBlock {
 
-   // private int id;
     private String task;
     private boolean status;
 
     public TaskBlock(String task, boolean status) {
-     //   this.id = id;
         this.task = task;
         this.status = status;
     }
-
-//    public void setId(int id){
-//        this.id = id;
-//    }
-//
-//    public int getId() {
-//        return id;
-//    }
 
     public void setTask(String task) {
         this.task = task;

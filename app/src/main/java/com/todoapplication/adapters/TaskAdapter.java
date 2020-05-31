@@ -8,13 +8,9 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.todoapplication.R;
 import com.todoapplication.models.TaskBlock;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
@@ -23,7 +19,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         private OnItemClickListener mListener;
 
         public interface OnItemClickListener {
-            //void onDeleteClick(int position);
             void onStatusChange(int position);
             void onUndo(int position);
         }
@@ -36,14 +31,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             public TextView task;
             public ImageView status;
             public ImageView undo;
-            //public ImageView delete;
-
             public TaskViewHolder(View itemView, final OnItemClickListener listener) {
                 super(itemView);
                 task = itemView.findViewById(R.id.task);
                 status = itemView.findViewById(R.id.checkButton);
                 undo = itemView.findViewById(R.id.undoButton);
-               // delete = itemView.findViewById(R.id.deleteButton);
 
                 status.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -67,17 +59,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                         }
                     }
                 });
-//                delete.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if(listener != null){
-//                            int positiom = getAdapterPosition();
-//                            if(positiom != RecyclerView.NO_POSITION){
-//                                listener.onDeleteClick(positiom);
-//                            }
-//                        }
-//                    }
-//                });
             }
         }
 
@@ -101,13 +82,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             if(currentItem.getStatus()==true){
                 holder.task.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.undo.setVisibility(View.VISIBLE);
-               // holder.delete.setVisibility(View.VISIBLE);
                 holder.status.setVisibility(View.GONE);
             }else{
                 holder.task.setPaintFlags(View.INVISIBLE);
                 holder.status.setVisibility(View.VISIBLE);
                 holder.undo.setVisibility(View.GONE);
-               // holder.delete.setVisibility(View.GONE);
             }
         }
 
